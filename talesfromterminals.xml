@@ -4112,8 +4112,8 @@ details summary:focus { /* Basic focus style */
             <b:widget-setting name='endcapTextColor'>#6f6f6f</b:widget-setting>
             <b:widget-setting name='contentTextColor'>#6f6f6f</b:widget-setting>
             <b:widget-setting name='contentSecondaryLinkColor'>#FFFFFF</b:widget-setting>
-            <b:widget-setting name='endcapLinkColor'>$(keycolor)</b:widget-setting>
-            <b:widget-setting name='contentLinkColor'>$(keycolor)</b:widget-setting>
+            <b:widget-setting name='endcapLinkColor'>#9c27b0</b:widget-setting>
+            <b:widget-setting name='contentLinkColor'>#9c27b0</b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
   <b:if cond='data:title != &quot;&quot; and data:codeSnippet != &quot;&quot;'>
