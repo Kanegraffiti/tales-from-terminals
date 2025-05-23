@@ -3,6 +3,8 @@
 <html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='strm.xml' b:templateVersion='1.0.1' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
   <head>
     <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <meta name="description" content="An Android-first dev blog with code, tools, and stories from the terminal."/>
+    <meta name="theme-color" content="#9c27b0"/>
     <title><data:view.title.escaped/></title>
     <b:include data='blog' name='all-head-content'/>
 
@@ -25,6 +27,11 @@
 <!-- Variable definitions -->
 
 <Variable name="keycolor" description="Main Color" type="color" default="#2196f3"  value="#9c27b0"/>
+<Variable name="terminal.code.bg" description="Terminal Code Background" type="color" default="#2d2d2d" value="#2d2d2d"/>
+<Variable name="terminal.code.text" description="Terminal Code Text" type="color" default="#f8f8f2" value="#f8f8f2"/>
+<Variable name="table.border.color" description="Table Border Color" type="color" default="#ddd" value="#ddd"/>
+<Variable name="table.header.bg" description="Table Header Background" type="color" default="#f5f5f5" value="#f5f5f5"/>
+<Variable name="table.text.color" description="Table Text Color" type="color" default="#333" value="#333"/>
 <Variable name="startSide" description="Start side in blog language" type="automatic" default="left" hideEditor="true" />
 <Variable name="endSide" description="End side in blog language" type="automatic" default="right" hideEditor="true" />
 
@@ -66,13 +73,13 @@
 <Group description="Links">
   <Variable name="body.link.color" description="Link color"
       type="color"
-      default="#2196f3"  value="#d318f3"/>
+      default="#2196f3"  value="$(keycolor)"/>
   <Variable name="body.link.visited.color" description="Visited link color"
       type="color"
-      default="$(body.link.color)"  value="#d318f3"/>
+      default="$(body.link.color)"  value="$(keycolor)"/>
   <Variable name="body.link.hover.color" description="Link Hover Color"
       type="color"
-      default="$(body.link.color)"  value="#d318f3"/>
+      default="$(body.link.color)"  value="$(keycolor)"/>
 </Group>
 
 <Group description="Blog title" selector="div.widget.Header">
@@ -96,10 +103,10 @@
       default="700 normal $(size) $(family)"  value="700 normal $(size) $(family)"/>
   <Variable name="tabs.color" description="Text color"
       type="color"
-      default="#ccc"  value="#6f6f6f"/>
+      default="#ccc"  value="$(body.text.color)"/>
   <Variable name="tabs.selected.color" description="Selected color"
       type="color"
-      default="#fff"  value="#212121"/>
+      default="#fff"  value="$(keycolor)"/>
   <Variable name="tabs.overflow.background.color" description="Popup background color"
       type="color"
       default="$(posts.background.color)"  value="#ffffff"/>
@@ -229,7 +236,7 @@
   <Variable name="widget.title.color"
       description="Gadget title color"
       type="color"
-      default="#424242"  value="#212121"/>
+      default="#424242"  value="$(keycolor)"/>
   <Variable name="sidebar.icons.color"
       description="Sidebar icons color"
       type="color"
@@ -252,7 +259,7 @@
   <Variable name="labels.text.color"
       description="Label text color"
       type="color"
-      default="$(body.link.color)"  value="#d318f3"/>
+      default="$(body.link.color)"  value="$(keycolor)"/>
   <Variable name="labels.background.color"
       description="Label background color"
       type="color"
@@ -1192,7 +1199,7 @@ cursor:pointer
 }
 .sidebar-container .widget{
 background:none;
-margin:0 16px;
+margin:0 16px 16px 16px; /* Added bottom margin */
 padding:16px 0
 }
 .sidebar-container .widget .title{
@@ -1212,7 +1219,7 @@ font-size:16px;
 line-height:normal
 }
 .sidebar-container .widget+.widget{
-border-top:1px dashed $(sidebar.separator.color)
+border-top: none; /* Remove separator */
 }
 .BlogArchive li{
 margin:16px 0
@@ -2536,8 +2543,8 @@ margin-left:40px
 }
 /* Code block appearance */
 pre code {
-  background: #2d2d2d;
-  color: #f8f8f2;
+  background: $(terminal.code.bg);
+  color: $(terminal.code.text);
   padding: 1em;
   display: block;
   overflow-x: auto;
@@ -2564,7 +2571,7 @@ code:hover {
 
 /* Headings for better visual flow */
 h1, h2, h3 {
-  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 700;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
@@ -2581,10 +2588,9 @@ h1, h2, h3 {
 /* Styled images - same size, same rounding */
 .post-body img {
   display: block;
-  max-width: 100%;
-  width: 100%;
-  height: auto;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  width: 100%; /* Ensures it takes full container width */
+  height: auto; /* Maintains aspect ratio */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   border-radius: 8px;
   margin-bottom: 1.5rem;
 }
@@ -2603,24 +2609,70 @@ h1, h2, h3 {
   font-size: 14px;
 }
 .post-body th, .post-body td {
-  border: 1px solid #ddd;
+  border: 1px solid $(table.border.color);
   padding: 10px;
+  color: $(table.text.color);
   text-align: left;
 }
 .post-body th {
-  background-color: #f5f5f5;
+  background: $(table.header.bg);
   font-weight: bold;
 }
 
 /* Link styling */
 .post-body a {
-  color: #9C27B0;
+  color: $(keycolor);
   text-decoration: none;
   font-weight: 500;
 }
 .post-body a:hover {
   text-decoration: underline;
-}]]></b:skin>
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+body.dark-mode .post-body {
+  background-color: #1e1e1e;
+}
+body.dark-mode pre code {
+  background: #1f1f1f; /* This will override the $(terminal.code.bg) in dark mode */
+}
+body.dark-mode a {
+  color: #ba68c8; /* This will override $(keycolor) for links in dark mode */
+}
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: $(keycolor);
+  width: 0%;
+  z-index: 9999;
+}
+
+/* Styling for HTML details and summary elements */
+details {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1em;
+  margin-bottom: 1rem; /* Added for spacing between multiple details elements */
+}
+summary {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.5em 0; /* Added for better click area and spacing from content */
+}
+details summary::marker, /* Hide default marker if any */
+details summary::-webkit-details-marker {
+    display: none;
+}
+details summary:focus { /* Basic focus style */
+    outline: 1px dotted #000;
+}
+]]></b:skin>
 
     <b:template-skin>
       <![CDATA[
@@ -2928,6 +2980,8 @@ h1, h2, h3 {
   </head>
 
   <body>
+    <button class="theme-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <div id="reading-progress"></div>
     <b:class cond='data:view.isPreview' name='preview'/>
     <b:class cond='data:view.isSingleItem' name='item-view'/>
     <b:class cond='data:view.isArchive' name='archive-view'/>
@@ -3969,7 +4023,7 @@ h1, h2, h3 {
   }
 
   .tf-section h2 {
-    color: #9C27B0;
+    color: $(keycolor);
     margin-bottom: 0.5em;
     font-size: 1.5em;
   }
@@ -3984,7 +4038,7 @@ h1, h2, h3 {
     padding: 0.6em 1.2em;
     border-radius: 5px;
     background: #f3e5f5;
-    color: #6A1B9A;
+    color: $(keycolor);
     font-weight: bold;
     text-decoration: none;
   }
@@ -4058,8 +4112,8 @@ h1, h2, h3 {
             <b:widget-setting name='endcapTextColor'>#6f6f6f</b:widget-setting>
             <b:widget-setting name='contentTextColor'>#6f6f6f</b:widget-setting>
             <b:widget-setting name='contentSecondaryLinkColor'>#FFFFFF</b:widget-setting>
-            <b:widget-setting name='endcapLinkColor'>#d318f3</b:widget-setting>
-            <b:widget-setting name='contentLinkColor'>#d318f3</b:widget-setting>
+            <b:widget-setting name='endcapLinkColor'>$(keycolor)</b:widget-setting>
+            <b:widget-setting name='contentLinkColor'>$(keycolor)</b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
   <b:if cond='data:title != &quot;&quot; and data:codeSnippet != &quot;&quot;'>
@@ -4198,5 +4252,26 @@ h1, h2, h3 {
     </aside>
 
     <b:template-script async='true' name='strm' version='1.0.0'/>
+    <script>
+      function toggleDarkMode() {
+        const body = document.body;
+        const isDark = body.classList.toggle("dark-mode");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      }
+      (function () {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") document.body.classList.add("dark-mode");
+      })();
+    </script>
+    <script>
+      window.addEventListener("scroll", function () {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        if (document.getElementById("reading-progress")) { // Check if element exists
+          document.getElementById("reading-progress").style.width = scrollPercent + "%";
+        }
+      });
+    </script>
   </body>
 </html>
